@@ -4,6 +4,8 @@ ArtStation Archiver saves your ArtStation Marketplace purchases to a folder on y
 
 **Development preview · 0.1.28**
 
+![ArtStation Archiver library showing a grid of product cards](docs/library-preview.png)
+
 ## Run on Windows
 
 1. Download or clone the source and install Node.js LTS with npm.
