@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' archive: data:; connect-src 'none'; frame-src https://www.youtube-nocookie.com https://player.vimeo.com; object-src 'none'; base-uri 'none'">
+<title>ArtStation Archiver</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<template id="remove-pack-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M9 3h6l1 2h4v2H4V5h4l1-2ZM6 8h12v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V8Z"/></svg></template>
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" class="icon-definitions" aria-hidden="true"><symbol id="collection-folder-shape" viewBox="0 0 24 20"><path d="M2 16.5V3.5A1.5 1.5 0 0 1 3.5 2h5.3l2.6 2.5h9.1A1.5 1.5 0 0 1 22 6v10.5a1.5 1.5 0 0 1-1.5 1.5h-17A1.5 1.5 0 0 1 2 16.5Z"/></symbol></svg>
+<header class="toolbar"><strong>ARTSTATION <span>ARCHIVER</span></strong><div class="toolbar-actions"><button id="settings-button">Settings</button><button id="signin-button">Sign in to ArtStation</button><button id="sync-button" class="primary">Synchronize library</button></div></header>
+<section id="setup" class="setup" hidden><h1>Your ArtStation library, on your computer.</h1><p>Choose where to store your library. Then sign in once; your products, previews and files will synchronize automatically.</p><button id="location-button" class="primary">Choose library location</button><p class="muted">Use a folder with enough free space for all your purchases.</p></section>
+<section id="progress-panel" aria-label="Archive progress">
+  <div class="progress-heading"><strong id="phase">Ready</strong><span id="percentage"></span><button id="pause-button">Pause</button></div>
+  <progress id="progress" max="100" value="0" aria-label="Overall archive progress"></progress>
+  <div class="counts"><span id="counts">Choose a folder to start archiving your library.</span><button id="attention-filter" type="button" aria-controls="grid" aria-pressed="false" hidden></button></div><div id="current" class="muted" aria-live="polite"></div>
+</section>
+<div id="notice" role="status" hidden></div>
+<div class="layout"><aside><h1>My Library</h1><button id="new-folder" class="new-folder">+ Create New Folder</button><button id="add-pack" class="new-folder">+ Add pack</button><nav id="folders" aria-label="Library folders"></nav><p class="hint">Drag a pack onto a collection to add it.<br>Drag the left grip to reorder collections.</p><p id="library-path" class="path"></p><p class="alpha">Development preview &middot; 0.1.28</p></aside>
+<main><div class="library-header"><h2 id="folder-title"><svg class="collection-icon" aria-hidden="true"><use href="#collection-folder-shape"/></svg><span>All</span></h2><span id="product-count" class="muted">0 Products</span><div class="filters"><select id="visibility" aria-label="Product visibility"><option value="visible">All</option><option value="hidden">Hidden Products</option></select><select id="seller" aria-label="Filter by author"><option value="">All Sellers</option></select>
+  <div class="library-search">
+    <input id="search" placeholder="Search in library..." aria-label="Search in library">
+    <button id="clear-search" type="button" aria-label="Clear search" title="Clear search">&times;</button>
+  </div>
+</div></div>
+<section id="empty" class="empty"><h2>Your library is ready to synchronize.</h2><p>Sign in to ArtStation. Your library will be archived automatically.</p><p>Descriptions and previews are saved first, then missing product files.</p></section><div id="grid" class="grid"></div></main></div>
+<dialog id="settings-modal"><form method="dialog"><h2>Settings</h2><h3>Library location</h3><p id="settings-path" class="path"></p><p class="muted">This is where your products and previews are stored. The application remembers one location.</p><button type="button" id="change-location">Change location</button><p class="muted">Select a new or existing archive folder. Existing files are not moved. Synchronization starts after you select the folder.</p><section class="reset-settings"><h3>Diagnostics</h3><p class="muted">Logs record failed products, files and download stages. Open the latest diagnostics.log to check errors.</p><button type="button" id="open-logs">Open logs folder</button><p id="log-status" role="status" aria-live="polite"></p></section><section class="reset-settings"><h3>Reset application</h3><p class="muted">Permanently delete all archived products and their contents in the current library, and clear settings and your saved sign-in. The app will return to first-time setup.</p><button type="button" id="wipe-all-data" class="danger">Wipe all data</button><p id="wipe-status" role="status" aria-live="polite"></p></section><div class="dialog-actions"><button id="settings-close">Close</button></div></form></dialog>
+<dialog id="product-modal"><div id="product-content"></div></dialog>
+<dialog id="pack-modal" aria-labelledby="pack-title"><form id="pack-form">
+  <h2 id="pack-title">Add pack</h2>
+  <div class="pack-fields">
+  <label>Pack name <input name="title" required maxlength="200" autofocus></label>
+  <div class="pack-pickers"><button type="button" id="pick-files">Choose files…</button><button type="button" id="pick-cover">Choose cover…</button></div>
+  <ul id="picked-list"></ul>
+  <details><summary>Optional details</summary>
+    <label>Author <input name="author" maxlength="200"></label>
+    <label>Version <input name="version" maxlength="80"></label>
+    <label>Description <textarea name="description" rows="4"></textarea></label>
+    <fieldset id="pack-collections"><legend>Collections</legend></fieldset>
+  </details>
+  </div>
+  <footer><p id="pack-status" role="status"></p><div class="dialog-actions"><button type="button" id="cancel-pack">Cancel</button><button class="primary" type="submit">Add pack</button></div></footer>
+</form></dialog>
+<dialog id="folder-modal"><form method="dialog"><h2>New folder</h2><label>Folder name <input id="folder-name" maxlength="80" required></label><div class="dialog-actions"><button value="cancel" formnovalidate>Cancel</button><button value="create" class="primary">Create folder</button></div></form></dialog>
+<script src="rich-text.js"></script><script src="folder-sidebar.js"></script><script src="renderer.js"></script></body></html>

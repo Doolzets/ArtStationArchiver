@@ -1,0 +1,51 @@
+# Only the public project files listed here are eligible for a normal git add.
+# Add an entry when introducing a source file, test, asset or public document.
+*
+!/.gitignore
+!/LICENSE
+!/README.md
+!/package.json
+!/package-lock.json
+!/Setup ArtStation Archiver.bat
+!/Start ArtStation Archiver.bat
+
+!/docs/
+!/docs/ROADMAP.md
+
+!/app/
+!/app/archive.cjs
+!/app/catalog.cjs
+!/app/collections.cjs
+!/app/core.cjs
+!/app/details.cjs
+!/app/diagnostics.cjs
+!/app/folder-sidebar.js
+!/app/index.html
+!/app/local-packs.cjs
+!/app/main.cjs
+!/app/preload.cjs
+!/app/renderer.js
+!/app/reset.cjs
+!/app/rich-text.js
+!/app/site.cjs
+!/app/style.css
+!/app/sync.cjs
+
+!/scripts/
+!/scripts/check.cjs
+!/scripts/preview-reference.cjs
+
+!/test/
+!/test/catalog.test.cjs
+!/test/collections.test.cjs
+!/test/core.test.cjs
+!/test/details.test.cjs
+!/test/diagnostics.test.cjs
+!/test/local-packs.test.cjs
+!/test/media.test.cjs
+!/test/pagination.test.cjs
+!/test/queue.test.cjs
+!/test/reset.test.cjs
+!/test/rich-text.test.cjs
+!/test/site.test.cjs
+!/test/sync.test.cjs

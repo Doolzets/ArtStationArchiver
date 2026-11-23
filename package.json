@@ -1,0 +1,39 @@
+{
+  "name": "artstation-archiver",
+  "version": "0.1.28",
+  "private": true,
+  "license": "MIT",
+  "description": "A local archive and viewer for your ArtStation purchases",
+  "main": "app/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/*.test.cjs",
+    "check": "node scripts/check.cjs",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "45.3.3",
+    "electron-builder": "^26.0.12",
+    "linkedom": "^0.18.15"
+  },
+  "build": {
+    "appId": "com.artstationarchiver.desktop",
+    "productName": "ArtStation Archiver",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/**/*",
+      "LICENSE",
+      "package.json"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "portable": {
+      "artifactName": "ArtStationArchiver-${version}-${arch}.exe"
+    }
+  }
+}
